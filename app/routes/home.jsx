@@ -1,3 +1,6 @@
+import useOrderStore from "../lib/orderStore";
+import ClinicianView from "../components/ClinicianView";
+import FulfillmentView from "../components/FulfillmentView";
 
 export function meta({}) {
   return [
@@ -7,5 +10,21 @@ export function meta({}) {
 }
 
 export default function Home() {
-  return <h1>Hello world</h1>;
+  const user = useOrderStore(state => state.user);
+
+  if (user == null) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
+
+  if (user.type == "clinician") {
+    return (
+      <ClinicianView />
+    )
+  }
+
+  return (
+    <FulfillmentView />
+  )
 }

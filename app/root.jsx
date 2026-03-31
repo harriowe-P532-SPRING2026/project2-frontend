@@ -10,7 +10,7 @@ import {
 
 import "./app.css";
 import Header from "./components/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useOrderStore from "./lib/orderStore";
 
 export const links = () => [
@@ -46,13 +46,19 @@ export function Layout({ children }) {
 
 export default function App() {
   const user = useOrderStore((state) => state.user);
+  const restoreUser = useOrderStore((state) => state.restoreUser);
   const navigate = useNavigate();
+  const [restoring, setRestoring] = useState(true);
 
   useEffect(() => {
-    if (user == null) {
+    restoreUser().finally(() => setRestoring(false));
+  }, [])
+
+  useEffect(() => {
+    if (!restoring && user == null) {
       navigate("/user");
     }
-  }, [user])
+  }, [restoring, user])
   
   return (
     <div>
