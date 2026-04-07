@@ -5,4 +5,5 @@ export default [
     route("/user", "routes/user.jsx"),
     route("/order", "routes/new-order.jsx"),
     route("/audit-log", "routes/audit-log.jsx"),
+    route("/triage-strat", "routes/triage-strat.jsx")
 ] satisfies RouteConfig;

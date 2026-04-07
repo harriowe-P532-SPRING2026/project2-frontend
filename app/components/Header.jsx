@@ -14,6 +14,9 @@ export default function Header() {
                 <Link to={"/audit-log"} className='p-1'>
                     Audit Log
                 </Link>
+                <Link to={"/triage-strat"} className='p-1'>
+                Triage Strategy
+                </Link>
             </div>
             <div className="flex">
                 <Link to={"/user"} className='p-1'>

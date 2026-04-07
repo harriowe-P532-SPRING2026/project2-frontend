@@ -26,6 +26,7 @@ export default function LogInSignUp() {
     const [userName, setUserName] = useState("")
     const [name, setName] = useState("")
     const [type, setType] = useState("clinician")
+    const [email, setEmail] = useState("")
     const logIn = useOrderStore((state) => state.logIn);
     const signUp = useOrderStore((state) => state.signUp);
     
@@ -42,7 +43,7 @@ export default function LogInSignUp() {
     }
 
     async function callSignUp() {
-        await signUp(name, type);
+        await signUp(name, type, email);
         navigate("/")
     }
     
@@ -71,6 +72,11 @@ export default function LogInSignUp() {
                 </Field>
 
                 <Field>
+                    <FieldLabel htmlFor="fieldgroup-email">Email</FieldLabel>
+                    <Input id="fieldgroup-email" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
+                </Field>
+
+                <Field>
                     <FieldLabel htmlFor="fieldgroup-userType">User Type</FieldLabel>
                     <Select value={type} onValueChange={(e) => setType(e)}>
                         <SelectTrigger id="userType-orderType">
@@ -79,6 +85,7 @@ export default function LogInSignUp() {
                         <SelectContent>
                             <SelectItem value="clinician">Clinician</SelectItem>
                             <SelectItem value="fulfillment">Fulfillment Staff</SelectItem>
+                            <SelectItem value="admin">Administrator</SelectItem>
                         </SelectContent>
                     </Select>
                 </Field>

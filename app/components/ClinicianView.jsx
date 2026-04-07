@@ -43,6 +43,10 @@ export default function ClinicianView() {
         return () => clearInterval(interval);
     }, [])
 
+    const displayOrders = filter === "active"
+        ? orders.filter(o => o.status !== "COMPLETED" && o.status !== "CANCELLED")
+        : orders;
+
     return (
         <div className="w-65/100 m-auto">
             <Field className="mb-2">
@@ -56,10 +60,11 @@ export default function ClinicianView() {
                         <SelectItem value="all">All</SelectItem>
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="non-complete">Non Completed</SelectItem>
+                        <SelectItem value="active">Non-Completed / Non-Cancelled</SelectItem>
                     </SelectContent>
                 </Select>
             </Field>
-            <OrderTable orders={orders} role="clinician"/>
+            <OrderTable orders={displayOrders} role="clinician"/>
             <Button variant="outline">
                 <Link to={"/order"} >
                     Create Order

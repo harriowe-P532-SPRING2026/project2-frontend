@@ -27,6 +27,7 @@ export default function OrderTable({orders, role}) {
     const cancelOrder = useOrderStore(state => state.cancelOrder);
     const claimOrder = useOrderStore(state => state.claimOrder);
     const finishOrder = useOrderStore(state => state.finishOrder);
+    const user = useOrderStore(state => state.user)
 
 
     const columnDef = [
@@ -46,6 +47,19 @@ export default function OrderTable({orders, role}) {
             accessorKey: "clinician",
             header: "Clinician",
             cell: ({row}) => row.getValue("clinician")?.name
+        },
+        {
+            accessorKey: "fulfillmentStaff",
+            header: "Fulfillment Staff",
+            cell : ({row}) => {
+                if (row.getValue("fulfillmentStaff") == null) {
+                    return <div>N/A</div>;
+                } else if (row.getValue("fulfillmentStaff")["id"] == user.id) {
+                    return <div className="text-red-500">{row.getValue("fulfillmentStaff")["name"]}</div>
+                } else {
+                    return <div className="text-black">{row.getValue("fulfillmentStaff")["name"]}</div>
+                }
+            }
         },
         {
             accessorKey: "priority",
@@ -93,7 +107,13 @@ export default function OrderTable({orders, role}) {
     
     ];
 
+    const sortedOrders = [...orders].sort((a, b) => {
+        const aTop = a.fulfillmentStaff?.id == user?.id && a.status === "PENDING";
+        const bTop = b.fulfillmentStaff?.id == user?.id && b.status === "PENDING";
+        return bTop - aTop;
+    });
+
     return (
-        <DataTable columns={columnDef} data={orders} />
+        <DataTable columns={columnDef} data={sortedOrders} />
     )
 }
