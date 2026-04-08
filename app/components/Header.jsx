@@ -20,7 +20,7 @@ export default function Header() {
             </div>
             <div className="flex">
                 <Link to={"/user"} className='p-1'>
-                {user?.name || "Logged out"}
+                {user?.name || "Logged out"} | {user != null && user.notifications.length}
                 </Link>
             </div>
         </div>

@@ -6,7 +6,7 @@ import path from "path";
 
 
 export default defineConfig({
-  base: "/project2-frontend/",
+  base: "/project2-frontend-part2/",
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   resolve: {
     alias: {
