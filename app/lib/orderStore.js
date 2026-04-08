@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
-// const host = "https://triage-api.harrisowe.me"
-const host = "http://localhost:8080"
+const host = "https://triage-api-part2.harrisowe.me"
+// const host = "http://localhost:8080"
 
 const useOrderStore = create((set, get) => ({
     user: null,
